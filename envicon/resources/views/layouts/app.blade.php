@@ -117,7 +117,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}">
+                                <a class="nav-link" href="{{ route('stocks.index') }}">
                                     Stocks
                                 </a>
                             </li>

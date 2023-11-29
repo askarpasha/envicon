@@ -33,13 +33,14 @@
                     <td>{{ $product->quantity < 0 ? 'OUT OF STOCK' : 'IN STOCK' }}</td>
                     <td>{{ optional($product->user)->name ?? 'N/A' }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">Edit</a>
-                        <form action="" method="POST" onsubmit="return confirm('Are you sure?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
+            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+
+            <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
                 </tr>
             @endforeach
         </tbody>

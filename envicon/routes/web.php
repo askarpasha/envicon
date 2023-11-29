@@ -58,7 +58,14 @@ Route::post('/categories', 'CategoryController@store')->name('categories.store')
 Route::get('/products/create', 'ProductController@create')->name('products.create');
 Route::post('/products', 'ProductController@store')->name('products.store');
 Route::get('/products', 'ProductController@index')->name('products.index');
+Route::get('/products/{product}/edit', 'ProductController@edit')->name('products.edit');
+Route::put('/products/{product}', 'ProductController@update')->name('products.update');
+Route::delete('/products/{product}', 'ProductController@destroy')->name('products.destroy');
 
+
+Route::get('/stocks', 'StockController@index')->name('stocks.index');
+Route::post('/stocks', 'StockController@store')->name('stocks.store');
+// Add routes for edit and update if needed
 
 
 // ...other routes
