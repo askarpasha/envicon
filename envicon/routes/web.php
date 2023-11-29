@@ -44,3 +44,10 @@ Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->na
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/add-user', 'UserController@create')->name('add-user');
+Route::post('/add-user', 'UserController@store')->name('store-user');
+Route::get('/users', 'UserController@index')->name('user-listing');
+
+
+// ...other routes
