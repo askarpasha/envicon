@@ -102,17 +102,17 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}">
+                                <a class="nav-link" href="{{ route('category-listing') }}">
                                     Products Categories
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}">
+                                <a class="nav-link" href="{{ route('products.create') }}">
                                     Add Products
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}">
+                                <a class="nav-link" href="{{ route('products.index') }}">
                                     Products
                                 </a>
                             </li>

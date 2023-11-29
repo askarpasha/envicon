@@ -24,8 +24,12 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->status }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">Edit</a>
-                        <button onclick="" class="btn btn-danger">Delete</button>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
                     </td>
                 </tr>
             @endforeach

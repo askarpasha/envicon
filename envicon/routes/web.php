@@ -48,6 +48,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/add-user', 'UserController@create')->name('add-user');
 Route::post('/add-user', 'UserController@store')->name('store-user');
 Route::get('/users', 'UserController@index')->name('user-listing');
+Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
+Route::put('/users/{user}', 'UserController@update')->name('users.update');
+Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
+
+Route::get('/categories', 'CategoryController@index')->name('category-listing');
+Route::post('/categories', 'CategoryController@store')->name('categories.store');
+
+Route::get('/products/create', 'ProductController@create')->name('products.create');
+Route::post('/products', 'ProductController@store')->name('products.store');
+Route::get('/products', 'ProductController@index')->name('products.index');
+
 
 
 // ...other routes
