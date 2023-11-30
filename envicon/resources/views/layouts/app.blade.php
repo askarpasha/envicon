@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     
@@ -83,6 +85,7 @@
             <div class="row">
                 <!-- Sidebar -->
                 @auth
+                @if (auth()->user()->is_admin == 1)
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
@@ -125,6 +128,7 @@
                         </ul>
                     </div>
                 </nav>
+                @endif
                 @endauth
     
                 <!-- Main Content -->
@@ -137,4 +141,5 @@
     </div>
     
 </body>
+
 </html>

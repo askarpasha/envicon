@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class Product extends Model
 {
@@ -21,8 +23,24 @@ class Product extends Model
     ];
 
     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getIsFavoritedAttribute()
 {
-    return $this->belongsTo(User::class);
+    if (!Auth::check()) {
+        return false;
+    }
+
+    return $this->favorites()->where('user_id', Auth::id())->exists();
 }
 
+
+
+
+    public function favorites()
+{
+    return $this->hasMany(Favorite::class);
+}
 }

@@ -28,7 +28,12 @@
                     <td>{{ \Carbon\Carbon::parse($stock->last_added_date)->format('Y-m-d') }}</td>
 
                     <td>
-                        {{-- Edit Stock button/link --}}
+                        <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

@@ -9,6 +9,7 @@ class Stock extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'product_id',
         'supplier_name',

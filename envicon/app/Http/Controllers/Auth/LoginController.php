@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -37,4 +42,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function redirectTo()
+{
+    if (Auth::user()->is_admin == 1) {
+        return '/home'; // Admin dashboard route
+    }
+    
+    return '/'; // Non-admin landing page
+}
+
 }
