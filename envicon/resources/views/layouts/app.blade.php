@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,8 +22,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    
+
 
     <div id="app">
         <!-- Existing Navbar Here -->
@@ -32,7 +34,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -46,64 +50,71 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
 
-                            <!-- @if (Route::has('register'))
+                        <!-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif -->
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-    
+
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar -->
                 @auth
                 @if (auth()->user()->is_admin == 1)
+                
+
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                    <div class="sidebar-sticky">
+                    <div class="sidebar-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">
-                                    Dashboard
+                                    <span data-feather="home"></span>
+                                    Dashboard <span class="sr-only">(current)</span>
                                 </a>
                             </li>
+                            <!-- Repeat for other items -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}" class="list-group-item list-group-item-action">
+                                <a class="nav-link" href="{{ route('add-user') }}">
+                                    <span data-feather="users"></span>
                                     Add Users
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user-listing') }}">
+                                    <span data-feather="users"></span>
                                     User Listing
                                 </a>
                             </li>
+                           
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('category-listing') }}">
                                     Products Categories
@@ -124,22 +135,23 @@
                                     Stocks
                                 </a>
                             </li>
-                            <!-- Add other sidebar items here -->
+                            <!-- ... other items ... -->
                         </ul>
                     </div>
                 </nav>
+
                 @endif
                 @endauth
-    
+
                 <!-- Main Content -->
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                    
+                <main role="main" class="col-md-12 ml-sm-auto col-lg-12">
+
                     @yield('content')
                 </main>
             </div>
         </div>
     </div>
-    
+
 </body>
 
 </html>

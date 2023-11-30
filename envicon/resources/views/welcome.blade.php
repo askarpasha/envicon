@@ -33,86 +33,95 @@
     .favorited {
         /* Additional styles for favorited button */
     }
+    .logo-image {
+        max-height: 100px; /* Adjust the size of the logo as needed */
+        /* Add any additional styling for the logo here */
+    }
         </style>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            {{-- @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+            
+        <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      
+
+        <!-- Toggler for Mobile View -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                @auth
+                    @if (auth()->user()->is_admin)
+                        <script>window.location.href = "{{ url('/home') }}";</script>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-                    @endauth
-                </div>
-            @endif --}}
-            @if (Route::has('login'))
-    <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-        @auth
-            @if (auth()->user()->is_admin)
-                <script>window.location.href = "{{ url('/home') }}";</script>
-            @else
-                {{-- Dropdown for regular users --}}
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{ route('favorites') }}">Favorites</a></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            Logout
-                        </a></li>
-                    </ul>
-                </div>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            @endif
-        @else
-            <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-        @endauth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{ route('favorites') }}">Favorites</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a></li>
+                            </ul>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                    </li>
+                @endauth
+            </ul>
+        </div>
     </div>
-@endif
-          
+</nav>
 
-                <div class="container-fluid">
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
+
+          
+<div class="container-fluid py-5">
     <div class="row">
-        <!-- Left Navigation -->
-        <div class="col-md-3">
-            <!-- Navigation & Logo Here -->
-        </div> 
+        <!-- Left Navigation - Hidden on smaller screens -->
+        <div class="col-md-3 d-none d-md-block" style="height: 100vh; display: flex !important; align-items: center; justify-content: center;background: #00000029;">
+    <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="Logo" style="max-height: 100px;">
+</div>
+
+
 
         <!-- Product Grid -->
         <div class="col-md-9">
             <div class="row">
                 @foreach ($products as $product)
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <button class="btn btn-primary">Buy Now</button>
-                                @foreach ($products as $product)
-                                {{-- ... other product details ... --}}
-                                <button class="btn btn-secondary add-to-favorite {{ $product->isFavorited ? 'favorited' : '' }}"
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="card h-100">
+        <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ $product->name }}</h5>
+            <button class="btn btn-primary">Buy Now</button>
+            <button class="btn btn-secondary add-to-favorite {{ $product->isFavorited ? 'favorited' : '' }}"
                                     data-product-id="{{ $product->id }}"
                                     data-favorited="{{ $product->isFavorited ? '1' : '0' }}">
                                     {{ $product->isFavorited ? 'Added to Favorites' : 'Add to Favorite' }}
                                 </button>
-                            @endforeach
-                            
-                                
-                            </div>
-                        </div>
-                    </div>
+        </div>
+    </div>
+</div>
+
                 @endforeach
             </div>
         </div>
     </div>
 </div>
+
+             
             
         </div>
     </body>
@@ -120,8 +129,10 @@
     <script>
         $(document).ready(function() {
             $('.add-to-favorite').on('click', function() {
+                console.log("Button clicked");
                 var button = $(this);
                 var productId = button.data('product-id');
+                console.log("Product ID: ", productId);
         
                 if (button.data('favorited') == '0') {
                     $.ajax({
