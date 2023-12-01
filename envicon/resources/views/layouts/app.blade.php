@@ -21,6 +21,25 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .sidebar {
+            background-color: #f8f9fa; /* Light grey background */
+            border-right: 1px solid #dee2e6; /* Add a border to the right */
+        }
+        .sidebar .nav-link {
+            color: #333; /* Darker text for better readability */
+        }
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef; /* Light grey background on hover */
+            border-radius: 0.25rem; /* Slight rounding on hover */
+        }
+        .sidebar .nav-link.active {
+            color: #007bff; /* Bootstrap primary color for active state */
+            font-weight: bold; /* Make active link bold */
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -32,7 +51,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Envicon - Test') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -96,42 +115,48 @@
                     <div class="sidebar-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="#">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
+                                    Dashboard
                                 </a>
                             </li>
                             <!-- Repeat for other items -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('add-user') }}">
+                                <a class="nav-link {{ Request::routeIs('add-user') ? 'active' : '' }}" href="{{ route('add-user') }}">
                                     <span data-feather="users"></span>
                                     Add Users
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-listing') }}">
-                                    <span data-feather="users"></span>
+                                <a class="nav-link {{ Request::routeIs('user-listing') ? 'active' : '' }}" href="{{ route('user-listing') }}">
+                                    <span data-feather="userlisting"></span>
                                     User Listing
                                 </a>
                             </li>
                            
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('category-listing') }}">
+                                <a class="nav-link {{ Request::routeIs('category-listing') ? 'active' : '' }}" href="{{ route('category-listing') }}">
+                                    <span data-feather="productcat"></span>
                                     Products Categories
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.create') }}">
+                                <a class="nav-link {{ Request::routeIs('products.create') ? 'active' : '' }}" href="{{ route('products.create') }}">
+                                    <span data-feather="addprod"></span>
                                     Add Products
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.index') }}">
+                                <a class="nav-link {{ Request::routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
+
+                                    <span data-feather="products"></span>
                                     Products
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('stocks.index') }}">
+                                <a class="nav-link {{ Request::routeIs('stocks.index') ? 'active' : '' }}" href="{{ route('stocks.index') }}">
+
+                                    <span data-feather="stocks"></span>
                                     Stocks
                                 </a>
                             </li>
@@ -144,7 +169,7 @@
                 @endauth
 
                 <!-- Main Content -->
-                <main role="main" class="col-md-12 ml-sm-auto col-lg-12">
+                <main role="main" class="col-md-8 ml-sm-auto col-lg-8 p-5">
 
                     @yield('content')
                 </main>

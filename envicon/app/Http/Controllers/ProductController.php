@@ -38,7 +38,7 @@ class ProductController extends Controller
         'product_code' => 'required|string|unique:products,product_code',
         'cost' => 'required|numeric',
         'description' => 'nullable|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image validation
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', // Image validation
         'user_id' => 'required|exists:users,id',
         'quantity' => 'required|numeric',
     ]);
