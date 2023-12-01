@@ -18,8 +18,8 @@ class SuperAdminSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
-            'password' => Hash::make('12345678'), // Replace 'password' with a secure password
-            'is_admin' => true, // Assuming you have an 'is_admin' column to denote a Super Admin
+            'password' => Hash::make('12345678'), // better solution is through .env
+            'is_admin' => true,
             'created_at' => now(),
             'updated_at' => now()
         ]);
