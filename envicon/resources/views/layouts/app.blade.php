@@ -39,6 +39,7 @@
             font-weight: bold; /* Make active link bold */
         }
     </style>
+    @stack('styles')
     
 </head>
 
@@ -107,66 +108,67 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar -->
+                <nav class="col-md-2 d-none d-md-block bg-light">
                 @auth
                 @if (auth()->user()->is_admin == 1)
                 
 
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                    <div class="sidebar-sticky pt-3">
+                
+                    <div class="sidebar sidebar-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="#">
-                                    <span data-feather="home"></span>
+                                 
                                     Dashboard
                                 </a>
                             </li>
                             <!-- Repeat for other items -->
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('add-user') ? 'active' : '' }}" href="{{ route('add-user') }}">
-                                    <span data-feather="users"></span>
+                               
                                     Add Users
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('user-listing') ? 'active' : '' }}" href="{{ route('user-listing') }}">
-                                    <span data-feather="userlisting"></span>
+                             
                                     User Listing
                                 </a>
                             </li>
                            
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('category-listing') ? 'active' : '' }}" href="{{ route('category-listing') }}">
-                                    <span data-feather="productcat"></span>
+                         
                                     Products Categories
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('products.create') ? 'active' : '' }}" href="{{ route('products.create') }}">
-                                    <span data-feather="addprod"></span>
+                        
                                     Add Products
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
 
-                                    <span data-feather="products"></span>
+                      
                                     Products
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::routeIs('stocks.index') ? 'active' : '' }}" href="{{ route('stocks.index') }}">
 
-                                    <span data-feather="stocks"></span>
                                     Stocks
                                 </a>
                             </li>
                             <!-- ... other items ... -->
                         </ul>
                     </div>
-                </nav>
+             
 
                 @endif
                 @endauth
+            </nav>
 
                 <!-- Main Content -->
                 <main role="main" class="col-md-8 ml-sm-auto col-lg-8 p-5">

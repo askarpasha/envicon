@@ -9,35 +9,28 @@
 
         {{-- Product Dropdown --}}
         <div class="form-group">
-            <label for="product_id">Product</label>
-            <select class="form-control" id="product_id" name="product_id">
-                @foreach ($products as $product)
-                    <option value="{{ $product->id }}" {{ $product->id == $stock->product_id ? 'selected' : '' }}>
-                        {{ $product->name }}
-                    </option>
-                @endforeach
-            </select>
+            <label for="product_name">Product</label>
+            <input type="text" class="form-control" id="product_name" value="{{ $stock->product->name }}" readonly>
         </div>
-        <h3 class="pt-5">Last Added Section</h3>
+        <h4 class="pt-3 underlined-label">Last Added Section</h4>
         {{-- Supplier Name --}}
-        <div class="form-group">
-            <label for="supplier_name">Supplier Name</label>
-            <input type="text" class="form-control" id="supplier_name" name="supplier_name" value="{{ $stock->supplier_name }}" readonly>
-        </div>
+        <div class="row pb-3">
+            <div class="col-md-4 form-group">
+                <label for="supplier_name">Supplier Name</label>
+                <input type="text" class="form-control" id="supplier_name" name="supplier_name" value="{{ $stock->supplier_name }}" readonly>
+            </div>
 
-        {{-- Quantity Added --}}
-        <div class="form-group">
-            <label for="quantity_added">Quantity Added</label>
-            <input type="number" class="form-control" id="quantity_added" name="quantity_added" value="{{ $stock->quantity_added }}" readonly>
-        </div>
+            <div class="col-md-4 form-group">
+                <label for="quantity_added">Quantity Added</label>
+                <input type="number" class="form-control" id="quantity_added" name="quantity_added" value="{{ $stock->quantity_added }}" readonly>
+            </div>
 
-        {{-- Last Added Date --}}
-        {{-- Last Added Date --}}
-<div class="form-group">
-    <label for="last_added_date">Last Added Date</label>
-    <input type="date" class="form-control" id="last_added_date" name="last_added_date" 
-           value="{{ \Carbon\Carbon::parse($stock->last_added_date)->format('Y-m-d') }}" readonly>
-</div>
+            <div class="col-md-4 form-group">
+                <label for="last_added_date">Last Added Date</label>
+                <input type="date" class="form-control" id="last_added_date" name="last_added_date" 
+                       value="{{ \Carbon\Carbon::parse($stock->last_added_date)->format('Y-m-d') }}" readonly>
+            </div>
+        </div>
 <button type="button" class="btn btn-info" id="addMoreButton">Add More</button>
 
  {{-- Additional Fields (Initially Hidden) --}}
@@ -75,3 +68,11 @@
     });
 </script>
 @endsection
+
+@push('styles')
+<style>
+    .underlined-label {
+        text-decoration: underline;
+    }
+</style>
+@endpush

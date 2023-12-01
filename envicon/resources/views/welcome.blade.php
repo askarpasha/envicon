@@ -37,6 +37,11 @@
         max-height: 100px; /* Adjust the size of the logo as needed */
         /* Add any additional styling for the logo here */
     }
+    .card-img-top {
+        width: 100%; /* Full width of the card */
+        height: 200px; /* Fixed height */
+        object-fit: cover; /* Ensures the image covers the area, can be changed to 'contain' based on preference */
+    }
         </style>
     </head>
     <body class="antialiased">
@@ -95,7 +100,6 @@
 </div>
 
 
-
         <!-- Product Grid -->
         <div class="col-md-9">
             <div class="row">
@@ -121,6 +125,25 @@
     </div>
 </div>
 
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Please log in to add products to your favorites.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
              
             
         </div>
@@ -129,32 +152,38 @@
     <script>
         $(document).ready(function() {
             $('.add-to-favorite').on('click', function() {
-                console.log("Button clicked");
-                var button = $(this);
-                var productId = button.data('product-id');
-                console.log("Product ID: ", productId);
-        
-                if (button.data('favorited') == '0') {
-                    $.ajax({
-                        url: '{{ route('add-to-favorites') }}',
-                        type: 'POST',
-                        data: {
-                            product_id: productId,
-                            _token: '{{ csrf_token() }}' // CSRF token
-                        },
-                        success: function(response) {
-                            button.addClass('favorited').html('Added to Favorites <span class="green-tick-icon"></span>');
-                            button.data('favorited', '1');
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            console.error(error);
-                        }
-                    });
+                var isAuthenticated = @json(Auth::check()); // Determine if user is logged in (Laravel backend)
+    
+                if (!isAuthenticated) {
+                    // Show login modal if user is not authenticated
+                    $('#loginModal').modal('show');
+                } else {
+                    // User is authenticated, proceed with adding to favorites
+                    var button = $(this);
+                    var productId = button.data('product-id');
+    
+                    if (button.data('favorited') == '0') {
+                        $.ajax({
+                            url: '{{ route('add-to-favorites') }}',
+                            type: 'POST',
+                            data: {
+                                product_id: productId,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                button.addClass('favorited').html('Added to Favorites <span class="green-tick-icon"></span>');
+                                button.data('favorited', '1');
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error adding to favorites:", error);
+                            }
+                        });
+                    }
                 }
             });
         });
-        </script>
+    </script>
+    
         
         
 

@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <h2>Stock List</h2>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStockModal">Add Stock</button>
+    <button class="btn btn-primary" style="margin-bottom: 15px;" data-bs-toggle="modal" data-bs-target="#addStockModal">Add Stock</button>
 
     {{-- Stock Listing Table --}}
-    <table class="table">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Serial No.</th>
@@ -28,12 +28,14 @@
                     <td>{{ \Carbon\Carbon::parse($stock->last_added_date)->format('Y-m-d') }}</td>
 
                     <td>
-                        <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div class="d-inline-flex">
+                            <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-primary mr-2">Edit</a>
+                            <form action="{{ route('stocks.destroy', $stock->id) }}" class="px-3" method="POST" onsubmit="return confirm('Are you sure?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach

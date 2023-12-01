@@ -24,13 +24,16 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->status }}</td>
                     <td>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
+                        <div class="d-inline-flex">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary mr-2">Edit</a>
+                            <form action="{{ route('users.destroy', $user->id) }}" class="px-2" method="POST" onsubmit="return confirm('Are you sure?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </td>
+                    
                 </tr>
             @endforeach
         </tbody>

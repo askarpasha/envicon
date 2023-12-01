@@ -39,7 +39,7 @@
                         </div>
 
                         <!-- Image Field -->
-                        <div class="form-group">
+                        <div class="form-group py-3">
                             <label for="image">Image</label>
                             <input type="file" class="form-control-file" id="image" name="image">
                         </div>
